@@ -1,6 +1,7 @@
 import { Logo } from "@/components/shared";
 
 export default function AuthLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+
     return (       
         <div className="min-h-screen relative">
             {/* Fondo */}

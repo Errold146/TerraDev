@@ -1,7 +1,10 @@
 "use client"
 
 import { z } from "zod"
+import axios from "axios"
+import { toast } from "sonner"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Input } from "@/components/ui/input"
@@ -12,6 +15,8 @@ import { formSchema } from "./RegisterForm.form"
 
 export function RegisterForm() {
 
+    const router = useRouter()
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -21,8 +26,18 @@ export function RegisterForm() {
         },
     })
     
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            await axios.post("/api/auth/register", values)
+            toast.success("Usuario Creado Correctamente")
+            setTimeout(() => {
+                router.push("/profiles")
+            }, 2000);
+
+        } catch (error) {
+            console.log(error)
+            toast.error("Ocurrio un error, intente de nuevo")
+        }
     }
 
     return (

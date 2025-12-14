@@ -4,7 +4,7 @@ import Link from "next/link"
 import { BellRing, Search, User } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { itemsNavbar } from "@/data"
+import { itemsNavbar } from "@/data/itemsNavbar"
 import { Logo } from "@/components/shared"
 import { useScrollPosition } from "@/hooks/useScrollPosition"
 

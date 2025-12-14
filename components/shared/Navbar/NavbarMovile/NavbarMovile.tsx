@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BellRing, Menu, Search, User } from "lucide-react";
 import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@/components/ui/sheet"
 
-import { itemsNavbar } from "@/data";
+import { itemsNavbar } from "@/data/itemsNavbar";
 import { Logo } from '@/components/shared';
 
 export const NavbarMovile = () => {
@@ -11,10 +11,10 @@ export const NavbarMovile = () => {
             <Logo />
 
             <Sheet>
-                <SheetTrigger>
+                <SheetTrigger aria-controls="nav-sheet">
                     <Menu />
                 </SheetTrigger>
-                <SheetContent side="left" className="bg-black">
+                <SheetContent id="nav-sheet" side="left" className="bg-black">
                     <SheetTitle className="text-black">Rutas</SheetTitle>
                     <SheetDescription className="flex flex-col gap-4 ml-10 text-white">
                         {itemsNavbar.map(item => (

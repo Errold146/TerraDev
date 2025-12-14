@@ -1,14 +1,12 @@
-"use client"
-
 import Link from "next/link";
-import { useState } from "react";
 
-import { Terms } from "../components/Terms";
+import { auth } from "@/auth";
+import Remember from "./Remember";
 import { LoginForm } from "./LoginForm";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Terms } from "../components/Terms";
 
-export default function LoginPage() {
-    const [remember, setRemember] = useState(false);
+export default async function LoginPage() {
+    const session = await auth();
 
     return (
         <div>
@@ -17,23 +15,7 @@ export default function LoginPage() {
             </p>
             
             <LoginForm />
-
-            <div className="flex items-center gap-2 mt-4">
-                <Checkbox
-                    id="remember"
-                    checked={remember}
-                    onCheckedChange={(v) => setRemember(!!v)}
-                    className="peer border-white data-[state=checked]:border-azul-600 
-                    data-[state=checked]:bg-azul-600 data-[state=checked]:text-white"
-                />
-                <label
-                    htmlFor="remember"
-                    className="text-white peer-data-[state=checked]:text-azul-600
-                    peer-disabled:cursor-not-allowed peer-disabled:opacity-70 transition-colors"
-                >
-                    Recordar Usuario
-                </label>
-            </div>
+            <Remember />
 
             <div className="mt-5 flex justify-between">
                 <Link
