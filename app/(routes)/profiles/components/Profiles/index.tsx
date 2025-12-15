@@ -3,9 +3,9 @@
 import axios from "axios"
 import Image from "next/image"
 import { toast } from "sonner"
-import { useEffect, useState } from "react"
 import { Trash2 } from "lucide-react"
-import { UserTerraDev } from "@prisma/client"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import {
     AlertDialog, 
@@ -22,6 +22,8 @@ import { Button } from "@/components/ui/button"
 
 import { cn } from "@/lib/utils"
 import { AddProfile } from "./AddProfile"
+import { UserTerraDev } from "@prisma/client"
+import { useCurrentUser } from "@/hooks/useCurretUser"
 
 interface Props {
     users: UserTerraDev[]
@@ -31,16 +33,22 @@ export function Profiles({ users }: Props) {
 
     const [manageProfile, setManageProfile] = useState(false)
     const [usersList, setUsersList] = useState<UserTerraDev[]>(users)
+    const router = useRouter()
+
+    const { chageCurrentUser } = useCurrentUser()
 
     useEffect(() => {
         setUsersList(users)
     }, [users])
 
+    const onClickUser = (user: UserTerraDev) => {
+        chageCurrentUser(user)
+        router.push("/")
+    }
+
     const deleteUser = async (idProfile: string) => {
         try {
-            // Send body field 'userTerraDev' to match API expectations
             await axios.delete("/api/userTerraDev", { data: { userTerraDev: idProfile }})
-            // Optimistically remove profile from UI
             setUsersList((prev) => prev.filter((u) => u.id !== idProfile))
             toast.success("Perfil eliminado correctamente")
             
@@ -58,6 +66,7 @@ export function Profiles({ users }: Props) {
                         <div 
                             key={user.id}
                             className="text-center relative cursor-pointer"
+                            onClick={() => onClickUser(user)}
                         >
                             <Image 
                                 src={user.avatarUrl || ""}

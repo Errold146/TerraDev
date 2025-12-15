@@ -14,16 +14,15 @@ datasource db {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String         @id @default(cuid())
     name          String?
-    email         String    @unique
+    email         String         @unique
     emailVerified DateTime?
     image         String?
     password      String?
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-
-    userTerraDev UserTerraDev[]
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    userTerraDev  UserTerraDev[]
 }
 
 model UserTerraDev {
@@ -32,7 +31,30 @@ model UserTerraDev {
     avatarUrl   String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    userId      String
+    User        User     @relation(fields: [userId], references: [id])
+}
 
-    userId String
-    User   User   @relation(fields: [userId], references: [id])
+model Movie {
+    id           String   @id @default(cuid())
+    title        String
+    thumbnailUrl String
+    genre        String
+    age          String
+    duration     String
+    trailerVideo String
+    movieVideo   String
+    createdAt    DateTime @default(now())
+}
+
+model PopularMovie {
+    id           String @id @default(cuid())
+    title        String
+    thumbnailUrl String
+    genre        String
+    age          String
+    duration     String
+    trailerVideo String
+    movieVideo   String
+    ranking      Int
 }
