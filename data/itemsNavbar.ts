@@ -16,7 +16,7 @@ export const itemsNavbar = [
         link: "/more-views"
     },
     {
-        name: "Mi Lista",
+        name: "Favoritos",
         link: "/my-list"
     }
 ]

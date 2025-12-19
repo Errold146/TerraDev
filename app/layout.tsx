@@ -24,9 +24,9 @@ export default function RootLayout({
   	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="es">
+		<html lang="es" className="overflow-x-hidden" suppressHydrationWarning>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-900`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-900 overflow-x-hidden`}
 			>
 				{children}
 				<Toaster richColors position="top-right" />

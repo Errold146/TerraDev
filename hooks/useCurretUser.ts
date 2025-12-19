@@ -5,13 +5,13 @@ import { UserTerraDev } from '@prisma/client';
 
 interface CurrentUserInterface {
     currentUser: UserTerraDev | null
-    chageCurrentUser: (data: UserTerraDev) => void
+    changeCurrentUser: (data: UserTerraDev) => void
 }
 
 export const useCurrentUser = create(persist<CurrentUserInterface>(
     (set) => ({
         currentUser: null,
-        chageCurrentUser: (data: UserTerraDev) => {
+        changeCurrentUser: (data: UserTerraDev) => {
             set({currentUser: data})
         }
     }),

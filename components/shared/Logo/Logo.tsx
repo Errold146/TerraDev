@@ -12,7 +12,7 @@ export const Logo = () => {
                 alt="Logo Terra Dev"
                 width={28}
                 height={28}
-                className="h-auto"
+                className="h-auto w-auto"
                 priority
             />
             TerraDev

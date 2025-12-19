@@ -35,14 +35,14 @@ export function Profiles({ users }: Props) {
     const [usersList, setUsersList] = useState<UserTerraDev[]>(users)
     const router = useRouter()
 
-    const { chageCurrentUser } = useCurrentUser()
+    const { changeCurrentUser } = useCurrentUser()
 
     useEffect(() => {
         setUsersList(users)
     }, [users])
 
     const onClickUser = (user: UserTerraDev) => {
-        chageCurrentUser(user)
+        changeCurrentUser(user)
         router.push("/")
     }
 
@@ -59,37 +59,44 @@ export function Profiles({ users }: Props) {
     }
 
     return (
-        <div>
-            <div className="flex gap-7">
+        <div className="w-full max-w-5xl">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-7">
                 {
                     usersList.map(user => (
                         <div 
                             key={user.id}
-                            className="text-center relative cursor-pointer"
+                            className="text-center relative cursor-pointer group"
                             onClick={() => onClickUser(user)}
                         >
-                            <Image 
-                                src={user.avatarUrl || ""}
-                                alt={`Imagen de ${user.profileName}`}
-                                width={140}
-                                height={140}
-                                priority
-                                className={cn(manageProfile ? "blur-md" : "",
-                                    "border-transparent hover:border-2 hover:border-white rounded-md"
-                                )}
-                            />
+                            <div className="w-full aspect-square max-w-[140px] mx-auto">
+                                <Image 
+                                    src={user.avatarUrl || ""}
+                                    alt={`Imagen de ${user.profileName}`}
+                                    width={140}
+                                    height={140}
+                                    priority
+                                    className={cn(manageProfile ? "blur-md" : "",
+                                        "w-full h-full object-cover border-2 border-transparent hover:border-white rounded-md transition-all duration-300"
+                                    )}
+                                />
+                            </div>
 
-                            <p className="mt-2 text-azul-200 uppercase text-lg">{user.profileName}</p>
+                            <p className="mt-2 text-azul-200 uppercase text-xs sm:text-sm md:text-base lg:text-lg font-medium truncate">{user.profileName}</p>
 
                             <div 
                                 className={cn(
-                                    "top-14 cursor-pointer w-full flex gap-4 items-center justify-center z-20",
+                                    "top-1/2 -translate-y-1/2 cursor-pointer w-full flex gap-4 items-center justify-center z-20",
                                     manageProfile ? "absolute" : "hidden"
                                 )}
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <AlertDialog>
                                     <AlertDialogTrigger asChild>
-                                        <div aria-controls={`alert-delete-${user.id}`} className="bg-rojo-50 rounded-full hover:bg-rojo-200 p-2">
+                                        <div 
+                                            aria-controls={`alert-delete-${user.id}`} 
+                                            className="bg-rojo-50 rounded-full hover:bg-rojo-200 p-2"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
                                             <Trash2 className="w-6 h-6 text-rojo-600" />
                                         </div>
                                     </AlertDialogTrigger>
@@ -118,12 +125,12 @@ export function Profiles({ users }: Props) {
                 <AddProfile />
             </div>
 
-            <div className="mt-16 flex items-center justify-center">
+            <div className="mt-8 md:mt-12 lg:mt-16 flex items-center justify-center">
                 <Button
                     variant="outline"
                     size="lg"
                     className={cn(
-                    "transition-colors duration-300 border-none",
+                    "transition-colors duration-300 border-none text-sm sm:text-base md:text-lg px-6 py-3 md:px-8 md:py-4",
                     manageProfile
                         ? "text-azul-500 bg-azul-100 hover:text-azul-100 hover:bg-azul-500"
                         : "text-rojo-500 bg-rojo-100 hover:text-rojo-100 hover:bg-rojo-500"

@@ -1,23 +1,21 @@
 "use client"
 
 import Link from "next/link"
-import { BellRing, Search, User } from "lucide-react"
+import { BellRing, Search } from "lucide-react"
 
-import { cn } from "@/lib/utils"
+import { UserTerraDev } from "@prisma/client"
 import { itemsNavbar } from "@/data/itemsNavbar"
-import { Logo } from "@/components/shared"
-import { useScrollPosition } from "@/hooks/useScrollPosition"
+import { Logo, SelectorProfiles } from "@/components/shared"
 
-export const NavbarDesktop = () => {
+interface Props {
+   users: UserTerraDev[] 
+}
 
-    const scrollPosition = useScrollPosition()
+export const NavbarDesktop = ({users}: Props) => {
 
     return (
         <div
-            className={cn(
-                "z-30 left-0 right-0 top-0 h-16 fixed w-full transition-all duration-300",
-                scrollPosition > 20 ? "bg-black" : "bg-transparent"
-            )}
+            className="z-30 left-0 right-0 top-0 h-16 fixed w-full bg-zinc-800 transition-all duration-300"
         >
             <div className="px-[4%] mx-auto h-full">
                 <div className="flex gap-4 justify-between h-full items-center">
@@ -41,8 +39,7 @@ export const NavbarDesktop = () => {
                         <BellRing className="cursor-pointer hover:text-pastel-500" />
 
                         <div className="flex gap-2 items-center">
-                            {/* Todo: Add User Profile */}
-                            <User className="cursor-pointer hover:text-pastel-500" />
+                            <SelectorProfiles users={users} />
                         </div>
                     </div>
                 </div>

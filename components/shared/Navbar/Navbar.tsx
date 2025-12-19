@@ -1,14 +1,19 @@
-import { NavbarDesktop } from "./NavbarDesktop/NavbarDesktop"
+import { UserTerraDev } from "@prisma/client"
 import { NavbarMovile } from "./NavbarMovile/NavbarMovile"
+import { NavbarDesktop } from "./NavbarDesktop/NavbarDesktop"
 
-export const Navbar = () => {
+interface Props {
+   users: UserTerraDev[] 
+}
+
+export const Navbar = ({ users }: Props) => {
     return (
         <nav>
             <div className="hidden mx-auto md:block">
-                <NavbarDesktop />
+                <NavbarDesktop users={users} />
             </div>
             <div className="md:hidden">
-                <NavbarMovile />
+                <NavbarMovile users={users} />
             </div>
         </nav>
     )

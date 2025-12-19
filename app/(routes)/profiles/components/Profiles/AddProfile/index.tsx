@@ -16,11 +16,11 @@ export function AddProfile() {
             <DialogTrigger asChild>
                 <button
                     aria-controls="add-profile-dialog"
-                    className="group flex flex-col items-center justify-center w-40 h-40 rounded-lg borde border-azul-400 
+                    className="group flex flex-col items-center justify-center w-full aspect-square max-w-[140px] mx-auto rounded-lg border border-azul-400 
                     bg-azul-100 shadow-sm hover:bg-azul-200 hover:shadow-md transition-all duration-300 ease-in-out"
                 >
-                    <PlusCircle className="w-14 h-14 text-azul-500 group-hover:text-azul-600 transition-colors duration-300" />
-                    <span className="mt-3 text-azul-600 font-semibold uppercase tracking-wide text-base">
+                    <PlusCircle className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-azul-500 group-hover:text-azul-600 transition-colors duration-300" />
+                    <span className="mt-2 md:mt-3 text-azul-600 font-semibold uppercase tracking-wide text-xs sm:text-sm md:text-base px-2">
                         Nuevo Perfil
                     </span>
                 </button>

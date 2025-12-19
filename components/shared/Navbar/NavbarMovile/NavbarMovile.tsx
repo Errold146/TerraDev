@@ -1,11 +1,16 @@
 import Link from "next/link";
-import { BellRing, Menu, Search, User } from "lucide-react";
+import { BellRing, Menu, Search } from "lucide-react";
 import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@/components/ui/sheet"
 
+import { UserTerraDev } from "@prisma/client";
 import { itemsNavbar } from "@/data/itemsNavbar";
-import { Logo } from '@/components/shared';
+import { Logo, SelectorProfiles } from '@/components/shared';
 
-export const NavbarMovile = () => {
+interface Props {
+    users: UserTerraDev[]
+}
+
+export const NavbarMovile = ({ users }: Props) => {
     return (
         <div className="p-4 flex justify-between">
             <Logo />
@@ -31,7 +36,8 @@ export const NavbarMovile = () => {
                     <div className="flex justify-between gap-6 mt-4 mx-10">
                         <Search className="cursor-pointer hover:text-pastel-500" />
                         <BellRing className="cursor-pointer hover:text-pastel-500" />
-                        <User className="cursor-pointer hover:text-pastel-500" />
+                        
+                        <SelectorProfiles users={users} />
                     </div>
                 </SheetContent>
             </Sheet>
