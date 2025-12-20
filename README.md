@@ -2,18 +2,19 @@
 
 TerraDev es una aplicación construida con Next.js 15, Prisma (v6) y NextAuth para gestionar autenticación y perfiles de usuario. Es una app lista para empezar a añadir trailers y películas nuevas o no tan nuevas para el disfrute de la familia, de momento no hay películas completas pero se puede ver toda su funcionalidad y el buen gusto por el UI/UX
 
-[![Prisma](https://img.shields.io/badge/Prisma-5.x-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.x-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.x-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-14.x-black?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.x-black?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-latest-000000?logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![React Player](https://img.shields.io/badge/React_Player-3.x-61DAFB?logo=react&logoColor=white)](https://www.npmjs.com/package/react-player)
 [![Axios](https://img.shields.io/badge/Axios-1.x-5A29E4?logo=axios&logoColor=white)](https://axios-http.com/)
 [![Neon](https://img.shields.io/badge/Neon-Serverless-00E699?logo=neon&logoColor=white)](https://neon.tech/)
-[![Zustand](https://img.shields.io/badge/Zustand-4.x-ffb300?logo=zustand&logoColor=white)](https://zustand-demo.pmnd.rs/)
-[![Sonner](https://img.shields.io/badge/Sonner-1.x-4F46E5?logo=sonner&logoColor=white)](https://sonner.emilkowal.ski/)
+[![Zustand](https://img.shields.io/badge/Zustand-5.x-443E38?logo=react&logoColor=white)](https://zustand-demo.pmnd.rs/)
+[![Sonner](https://img.shields.io/badge/Sonner-2.x-4F46E5?logo=sonner&logoColor=white)](https://sonner.emilkowal.ski/)
 [![lucide-react](https://img.shields.io/badge/lucide--react-latest-0A0A0A?logo=lucide&logoColor=white)](https://lucide.dev/)
-[![bcryptjs](https://img.shields.io/badge/bcryptjs-2.x-3388FF?logo=auth0&logoColor=white)](https://www.npmjs.com/package/bcryptjs)
+[![bcryptjs](https://img.shields.io/badge/bcryptjs-3.x-3388FF?logo=auth0&logoColor=white)](https://www.npmjs.com/package/bcryptjs)
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
@@ -31,16 +32,183 @@ pnpm dev
 # or
 bun dev
 
-**Características**
-- Inicio de sesión con `next-auth` y adaptador Prisma.
-- Gestión de perfiles por usuario (crear / eliminar perfiles).
-- Interfaz con componentes Radix UI y Tailwind.
+## 🎬 Características
 
-**Requisitos**
-- Node.js 18+ (recomendado).
-- PostgreSQL (o proveedor compatible) — en este proyecto se usa una base de datos Neon (`DATABASE_URL`).
-- `npm` o `pnpm`/`yarn`.
+### Autenticación y Perfiles
+- **Inicio de sesión seguro** con `NextAuth v5` y adaptador Prisma
+- **Gestión de perfiles** por usuario (crear/eliminar perfiles personalizados)
+## 📋 Requisitos
+- **Node.js** 18+ (recomendado 20+)
+- **PostgreSQL** (o proveedor compatible) — este proyecto usa Neon como base de datos serverless
+- **npm**, `pnpm` o `yarn` como gestor de paqueteso** usando `react-player` con soporte para múltiples formatos
+- **Controles completos** de reproducción (play, pause, volumen, fullscreen)
+## 🔧 Instalación y Configuración
 
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/Errold146/TerraDev.git
+cd terra-dev
+```
+
+### 2. Instalar dependencias
+```bash
+npm install
+```
+
+### 3. Variables de entorno
+Crear un archivo `.env` en la raíz con las siguientes variables:
+
+```env
+# Database
+DATABASE_URL="postgresql://usuario:password@host/database"
+
+# NextAuth
+AUTH_SECRET="tu-secret-key-generada"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+### 4. Configurar la base de datos
+```bash
+npx prisma generate       # Genera el cliente Prisma
+npx prisma migrate dev    # Aplica migraciones en desarrollo
+```
+
+### 5. Iniciar el servidor de desarrollo
+```bash
+npm run dev
+## 🗄️ Prisma (v6)
+Este proyecto utiliza **Prisma v6** como ORM. Comandos útiles:
+
+```bash
+npx prisma generate          # Genera el cliente Prisma
+npx prisma migrate dev       # Crea y aplica migraciones en desarrollo
+npx prisma migrate reset     # Resetea la BD (⚠️ ELIMINA TODOS LOS DATOS)
+npx prisma studio            # Abre Prisma Studio para ver/editar datos
+```
+
+> **Nota:** Si actualizas a Prisma v7, deberás personalizadas
+## 🛠️ Desarrollo Local
+
+### Mejores Prácticas
+- ✅ Asegúrate de tener las variables de entorno correctas antes de ejecutar migraciones
+- ✅ Evita importar el cliente Prisma (`db`) en componentes cliente (`"use client"`)
+- ✅ Usa Server Components, Server Actions o Route Handlers para consultas a la base de datos
+- ✅ El estado global (Zustand) se usa solo para datos del cliente (favoritos, usuario actual)
+
+## 🐛 Errores Comunes y Soluciones
+## 🚀 Funcionalidades Principales
+
+### 📺 Reproductor de Películas
+El reproductor utiliza **react-player**, una biblioteca versátil que soporta múltiples plataformas y formatos:
+
+```tsx
+// Implementación del reproductor
+import dynamic from "next/dynamic"
+
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false })
+
+<ReactPlayer 
+  src={movieUrl}
+  playing={true}
+  controls={true}
+  loop={true}
+  width="100%"
+  height="100%"
+/>
+```
+
+**Características del reproductor:**
+- ✅ Soporte para múltiples formatos (MP4, WebM, OGG)
+- ✅ Controles nativos de reproducción
+- ✅ Modo fullscreen
+- ✅ Control de volumen
+- ✅ Carga dinámica para optimizar SSR
+
+### ⭐ Sistema de Favoritos
+Sistema de gestión de favoritos por usuario con persistencia local:
+
+```typescript
+// Hook personalizado con Zustand
+const { addFavoriteFilm, removeFavoriteFilm, favoritesFilmsByUser } = useFavoritesFilms()
+
+// Agregar película a favoritos
+addFavoriteFilm(movieData)
+
+// Eliminar de favoritos
+removeFavoriteFilm(movieId)
+```
+
+**Características:**
+- ✅ Almacenamiento separado por usuario
+- ✅ Persistencia en localStorage
+- ✅ Validación de duplicados automática
+- ✅ Notificaciones toast con Sonner
+- ✅ Estado global con Zustand
+
+## 📚 Tecnologías y Librerías
+
+### Core
+- **Next.js 15** - Framework React con App Router y Turbopack
+- **React 19** - Biblioteca de interfaz de usuario
+- **TypeScript 5** - Tipado estático
+
+### Base de Datos y ORM
+- **Prisma 6** - ORM moderno para TypeScript
+- **PostgreSQL** - Base de datos relacional
+- **Neon** - PostgreSQL serverless para desarrollo y producción
+
+### Autenticación
+- **NextAuth v5** - Autenticación completa con soporte de sesiones
+- **@auth/prisma-adapter** - Adaptador de Prisma para NextAuth
+- **bcryptjs** - Encriptación de contraseñas
+
+### Estado y Gestión de Datos
+- **Zustand 5** - Gestión de estado global ligera y performante
+- **React Hook Form** - Manejo de formularios con validación
+- **Zod 4** - Validación de esquemas TypeScript-first
+- **Axios** - Cliente HTTP para peticiones
+
+### UI/UX
+- **shadcn/ui** - Componentes de UI accesibles y personalizables
+- **Radix UI** - Primitivos de UI sin estilos, totalmente accesibles
+- **Tailwind CSS 4** - Framework CSS utility-first
+- **Lucide React** - Librería de iconos moderna y personalizable
+- **Embla Carousel** - Librería de carruseles ligera y fluida
+- **Sonner** - Sistema de notificaciones toast elegante
+
+### Multimedia
+- **React Player** - Reproductor de video/audio universal que soporta:
+  - Archivos locales (MP4, WebM, OGG)
+  - YouTube, Vimeo, Twitch
+  - SoundCloud, Mixcloud
+  - Streaming HLS/DASH
+
+## 🤝 Contribuir
+1. Haz fork del repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+**Lineamientos:**
+- Añade pruebas si es posible
+- Describe claramente los cambios y cómo probarlos
+- Mantén el código limpio y bien documentado
+**Problema:** Error al importar `db` en componentes cliente.  
+**Solución:** Mueve las consultas a Server Components o crea un API Route/Server Action.
+
+### Base de Datos Desincronizada
+**Problema:** Migraciones no aplicadas o esquema desactualizado.  
+**Solución:** 
+```bash
+npx prisma migrate reset --force  # ⚠️ Elimina todos los datos
+# O
+npx prisma migrate dev            # Aplica migraciones pendientes
+```
+
+### Error: "params should be awaited" (Next.js 15)
+**Problema:** En Next.js 15, `params` en rutas dinámicas es una promesa.  
+**Solución:** Cambia `params: {id: string}` por `params: Promise<{id: string}>` y usa `const {id} = await params`
 **Variables de entorno**
 Crear un archivo `.env` en la raíz con al menos:
 
