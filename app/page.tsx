@@ -21,9 +21,7 @@ export default async function Home() {
 		<div className="relative bg-zinc-900 min-h-screen">
 			<Navbar users={userTerraDev} />
 			<SliderVideo />
-
 			<PopularMovies movies={popularMovies} />
-
 			<ListMovies movies={movies} />
 		</div>
 	)

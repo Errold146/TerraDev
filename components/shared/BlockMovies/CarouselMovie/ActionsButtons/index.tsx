@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Play, Heart, HeartOff, ChevronDown } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { useFavoritesFilms } from "@/hooks/useFavoritesFilms"
 
 interface Props {
     movieId: string
@@ -15,17 +16,18 @@ interface Props {
 export function ActionsButtons({ movieId, movie, isMyList }: Props) {
 
     const router = useRouter()
+    const { favoritesFilmsByUser, addFavoriteFilm, removeFavoriteFilm } = useFavoritesFilms()
 
     const onPlayButton = () => {
         router.push(`/movie/${movieId}`)
     }
 
     const addFavorities = () => {
-        console.log("Añadir a favoritos")
+        addFavoriteFilm(movie)
     }
 
     const removeFavorities = () => {
-        console.log("Eliminar favorito")
+        removeFavoriteFilm(movieId)
     }
 
     return (
