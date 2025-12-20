@@ -16,7 +16,7 @@ interface Props {
 export function ActionsButtons({ movieId, movie, isMyList }: Props) {
 
     const router = useRouter()
-    const { favoritesFilmsByUser, addFavoriteFilm, removeFavoriteFilm } = useFavoritesFilms()
+    const { addFavoriteFilm, removeFavoriteFilm } = useFavoritesFilms()
 
     const onPlayButton = () => {
         router.push(`/movie/${movieId}`)

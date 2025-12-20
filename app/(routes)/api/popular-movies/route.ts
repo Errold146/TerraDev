@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import type { PopularMovie, Prisma } from "@prisma/client";
 
 export async function POST(req: Request) {
 
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
             return new NextResponse("Falta información para subir las películas", { status: 400 })
         }
 
-        const createdMovies = [] as any[]
+        const createdMovies: PopularMovie[] = []
 
         for (const m of movies) {
             const { title, movieVideo, trailerVideo, thumbnailUrl, genre, age, duration, ranking } = m
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
                 return new NextResponse("Falta información para completar la operación", { status: 400 })
             }
 
-            const data: any = {
+            const data: Prisma.PopularMovieUncheckedCreateInput = {
                 title,
                 movieVideo,
                 trailerVideo,
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json(createdMovies, { status: 201 })
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error(error)
         const message = error instanceof Error ? error.message : String(error)
         if (message.includes('Invalid') || message.includes('Expected')) {

@@ -79,7 +79,8 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
 
   // Derive a stable id from the field name when available to avoid
   // hydration mismatches between server and client. Fallback to useId().
-  const id = name ? `form-${String(name).replace(/\./g, "-")}` : React.useId()
+  const generatedId = React.useId()
+  const id = name ? `form-${String(name).replace(/\./g, "-")}` : generatedId
 
   return (
     <FormItemContext.Provider value={{ id }}>

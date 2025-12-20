@@ -1,12 +1,10 @@
 import Link from "next/link";
 
-import { auth } from "@/auth";
 import Remember from "./Remember";
 import { LoginForm } from "./LoginForm";
 import { Terms } from "../components/Terms";
 
 export default async function LoginPage() {
-    const session = await auth();
 
     return (
         <div>

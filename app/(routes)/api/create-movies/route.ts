@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import type { Movie, Prisma } from "@prisma/client";
 
 export async function POST(req: Request) {
     try {
@@ -10,7 +11,7 @@ export async function POST(req: Request) {
             return new NextResponse("La información de las películas es requerida", { status: 400 })
         }
 
-        const createdMovies = [] as any[]
+        const createdMovies: Movie[] = []
 
         for (const m of movies) {
             const { id, title, movieVideo, trailerVideo, thumbnailUrl, genre, age, duration } = m
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
                 return new NextResponse(`Falta información para la película ${title ?? JSON.stringify(m)}`, { status: 400 })
             }
 
-            const data: any = {
+            const data: Prisma.MovieUncheckedCreateInput = {
                 title,
                 movieVideo,
                 trailerVideo,
@@ -37,7 +38,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json(createdMovies, { status: 201 })
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error(error)
         const message = error instanceof Error ? error.message : String(error)
         if (message.includes('Invalid') || message.includes('Expected')) {
